@@ -4643,14 +4643,24 @@ namespace Novacode
                 if (splitLeft.Value.Length == 0)
                     splitLeft = null;
                 else
-                    PreserveSpace(splitLeft);
+                    try
+                    {
+                        PreserveSpace(splitLeft);
+                    }
+                    catch (ArgumentException)
+                    { }
 
                 // The origional text element, now containing only the text after the index point.
                 splitRight = new XElement(t.Xml.Name, t.Xml.Attributes(), t.Xml.Value.Substring(index - t.startIndex, t.Xml.Value.Length - (index - t.startIndex)));
                 if (splitRight.Value.Length == 0)
                     splitRight = null;
                 else
-                    PreserveSpace(splitRight);
+                    try
+                    {
+                        PreserveSpace(splitRight);
+                    }
+                    catch (ArgumentException)
+                    { }
             }
 
             else

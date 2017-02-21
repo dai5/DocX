@@ -1124,15 +1124,22 @@ namespace Novacode
                 {
                     XDocument external_style_doc = HelperFunctions.DecompressXMLResource("Novacode.Resources.styles.xml.gz");
 
-                    var styleElement =
-                    (
-                        from e in external_style_doc.Descendants()
-                        let styleId = e.Attribute(XName.Get("styleId", DocX.w.NamespaceName))
-                        where (styleId != null && styleId.Value == val.Value)
-                        select e
-                    ).First();
+                    try
+                    {
+                        var styleElement =
+(
+    from e in external_style_doc.Descendants()
+    let styleId = e.Attribute(XName.Get("styleId", DocX.w.NamespaceName))
+    where (styleId != null && styleId.Value == val.Value)
+    select e
+).First();
 
-                    Document.styles.Element(XName.Get("styles", DocX.w.NamespaceName)).Add(styleElement);
+                        Document.styles.Element(XName.Get("styles", DocX.w.NamespaceName)).Add(styleElement);
+
+                    }
+                    catch { }
+
+
                 }
             }
         }

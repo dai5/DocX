@@ -848,6 +848,19 @@ namespace Novacode
             Xml.Add(newParagraphSection);
         }
 
+        public virtual void InsertPageBreak(bool trackChanges = false)
+        {
+            var newParagraphSection = new XElement
+           (
+                XName.Get("p", DocX.w.NamespaceName), new XElement(XName.Get("r", DocX.w.NamespaceName), new XElement(XName.Get("br", DocX.w.NamespaceName), new XAttribute(XName.Get("type", DocX.w.NamespaceName), "page")))
+           );
+
+            if (trackChanges)
+                newParagraphSection = HelperFunctions.CreateEdit(EditType.ins, DateTime.Now, newParagraphSection);
+
+            Xml.Add(newParagraphSection);
+        }
+
         public virtual void InsertSectionPageBreak(bool trackChanges = false)
         {
             var newParagraphSection = new XElement
